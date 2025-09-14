@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_custom_email" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.custom.email</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                <button name="%(action_sale_contact_email_wizard)d"
+                        string="Send by Email"
+                        type="action"
+                        class="btn-primary"
+                        invisible="state not in ['draft', 'sent']"
+                        data-hotkey="e"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

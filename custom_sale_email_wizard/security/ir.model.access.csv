@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_contact_email_wizard,sale.contact.email.wizard,model_sale_contact_email_wizard,base.group_user,1,1,1,1
+access_sale_contact_email_line,sale.contact.email.line,model_sale_contact_email_line,base.group_user,1,1,1,1

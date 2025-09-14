@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add Contact Wizard for adding new contacts - Define first -->
+    <record id="action_add_contact_wizard" model="ir.actions.act_window">
+        <field name="name">Add Contact</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_is_company': False}</field>
+    </record>
+
+    <record id="view_sale_contact_email_wizard_form" model="ir.ui.view">
+        <field name="name">sale.contact.email.wizard.form</field>
+        <field name="model">sale.contact.email.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Quotation by Email">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="template_id"/>
+                        </group>
+                        <group>
+                            <field name="subject"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Recipients">
+                            <field name="contact_line_ids">
+                                <tree editable="bottom">
+                                    <field name="selected" widget="boolean_toggle"/>
+                                    <field name="contact_id"
+                                           domain="[('parent_id', '=', parent.partner_id), ('email', '!=', False)]"
+                                           options="{'no_create': True}"/>
+                                    <field name="email"/>
+                                </tree>
+                            </field>
+                            <div class="mt16">
+                                <button name="action_add_contact"
+                                        string="Add Contact"
+                                        type="object"
+                                        class="btn-secondary"/>
+                            </div>
+                        </page>
+
+                        <page string="Message">
+                            <field name="body" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <footer>
+                    <button string="Send Email"
+                            name="action_send_email"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Preview"
+                            name="action_preview"
+                            type="object"
+                            class="btn-secondary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_contact_email_wizard" model="ir.actions.act_window">
+        <field name="name">Send Quotation by Email</field>
+        <field name="res_model">sale.contact.email.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'active_id': active_id}</field>
+    </record>
+</odoo>
